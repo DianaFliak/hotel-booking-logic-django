@@ -1,0 +1,17 @@
+{% extends 'home/base_crud.html' %}
+
+{% block title %}Create Booking{% endblock %}
+{% block header %}
+<h2>Create Booking</h2>
+{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Base CRUD{% endblock %}</title>
+    <!-- Підключення Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Світлий фон */
+        }
+        html, body {
+            height: 100%; /* Займає всю висоту */
+            margin: 0; /* Відсутні відступи */
+            display: flex; /* Використовуємо Flexbox */
+            flex-direction: column; /* Вертикальне вирівнювання */
+        }
+        
+        .container {
+            margin-top: 50px; /* Відступ зверху */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Тінь */
+            border-radius: 8px; /* Закруглені кути */
+            padding: 20px; /* Внутрішні відступи */
+        }
+        .footer {
+            background-color: #212529; /* Dark background for footer */
+            color: #ffffff; /* White text for footer */
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto; /* Push the footer to the bottom */
+          }
+      
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'index' %}">Holiday Resort</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'signout' %}">Sign Out</a>
+                            </li>
+                            {% if request.user.is_staff %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
+                                </li>
+                                <!-- Додайте інші посилання навігації тут -->
+                            {% endif %}
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'signin' %}">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'about_us' %}">About Us</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            {% block header %}
+            <h1>Header</h1>
+            {% endblock %}
+            
+            {% block content %}
+            <!-- Основний контент буде тут -->
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Holiday Resort. All rights reserved.</p>
+      </footer>
+
+    <!-- Підключення Bootstrap JS та jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

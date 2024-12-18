@@ -1,0 +1,18 @@
+{% extends 'home/base_crud.html' %}
+
+{% block title %}Delete Hotel{% endblock %}
+
+{% block header %}
+<h2>Delete Hotel</h2>
+{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <p>Are you sure you want to delete "{{ hotel.hotel_name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    <a href="{% url 'manage_data' %}" class="btn btn-secondary">Cancel</a>
+</div>
+{% endblock %}

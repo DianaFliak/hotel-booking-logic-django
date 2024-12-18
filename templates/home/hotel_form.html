@@ -1,0 +1,20 @@
+{% extends 'home/base_crud.html' %}
+
+{% block title %}Edit Hotel{% endblock %}
+
+{% block header %}
+<h2>Edit Hotel</h2>
+{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Виводимо форму -->
+        <div class="d-flex align-items-center mt-3"> <!-- Додаємо d-flex для горизонтального вирівнювання -->
+            <button type="submit" class="btn btn-success me-3">Save</button>
+            <a href="{% url 'manage_data' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

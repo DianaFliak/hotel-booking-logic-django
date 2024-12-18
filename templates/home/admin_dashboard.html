@@ -1,0 +1,213 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-4">
+            <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#hotels">Hotels</a>
+                    <a class="nav-link" href="#bookings">Bookings</a>
+                    <a class="nav-link" href="#amenities">Amenities</a>
+                    <a class="nav-link" href="#hotel-images">Hotel Images</a>
+                </nav>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-8">
+            <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
+                <!-- Hotels Section -->
+                <div id="hotels" class="mb-5">
+                    <h4>Hotels</h4>
+                    <input type="text" class="form-control search-input" id="hotelSearch" placeholder="Search by name...">
+                    <table class="table table-striped" id="hotelTable">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for hotel in hotels %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ hotel.hotel_name }}</td>
+                            <td>{{ hotel.hotel_price }}</td>
+                            <td>{{ hotel.description }}</td>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="{% url 'hotel_update' hotel.uid %}" class="btn btn-sm btn-primary me-2">Edit</a>
+                                    <a href="{% url 'hotel_delete' hotel.uid %}" class="btn btn-sm btn-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{% url 'hotel_create' %}" class="btn btn-success">Add Hotel</a>
+                </div>
+
+                <!-- Bookings Section -->
+                <div id="bookings" class="mb-5">
+                    <h4>Bookings</h4>
+                    <div class="mb-3">
+                        <input type="text" class="form-control search-input" id="customerSearch" placeholder="Search by customer name...">
+                        <input type="text" class="form-control search-input" id="hotelBookingSearch" placeholder="Search by hotel name...">
+                    </div>
+                    <table class="table table-striped" id="bookingTable">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Customer Name</th>
+                            <th>Hotel</th>
+                            <th>Check-in Date</th>
+                            <th>Check-out Date</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for booking in bookings %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ booking.user.username }}</td>
+                            <td>{{ booking.hotel.hotel_name }}</td>
+                            <td>{{ booking.start_date }}</td>
+                            <td>{{ booking.end_date }}</td>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="{% url 'booking_update' booking.uid %}" class="btn btn-sm btn-primary me-2">Edit</a>
+                                    <a href="{% url 'booking_delete' booking.uid %}" class="btn btn-sm btn-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{% url 'booking_create' %}" class="btn btn-success">Add Booking</a>
+                </div>
+
+                <!-- Amenities Section -->
+                <div id="amenities" class="mb-5">
+                    <h4>Amenities</h4>
+                    <input type="text" class="form-control search-input" id="amenitySearch" placeholder="Search by amenity name...">
+                    <table class="table table-striped" id="amenityTable">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Amenity Name</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for amenity in amenities %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ amenity.amenity_name }}</td>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="{% url 'amenities_update' amenity.uid %}" class="btn btn-sm btn-primary me-2">Edit</a>
+                                    <a href="{% url 'amenities_delete' amenity.uid %}" class="btn btn-sm btn-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{% url 'amenities_create' %}" class="btn btn-success">Add Amenity</a>
+                </div>
+
+                <!-- Hotel Images Section -->
+                <div id="hotel-images" class="mb-5">
+                    <h4>Hotel Images</h4>
+                    <input type="text" class="form-control search-input" id="hotelImageSearch" placeholder="Search by hotel name...">
+                    <table class="table table-striped" id="hotelImageTable">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Hotel</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for image in hotel_images %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ image.hotel.hotel_name }}</td>
+                            <td><img src="{{ image.images.url }}" alt="{{ image.hotel.hotel_name }}" style="width: 100px; height: auto;"></td>                            <td>
+                                <div class="d-flex">
+                                    <a href="{% url 'hotel_images_update' image.pk %}" class="btn btn-sm btn-primary me-2">Edit</a>
+                                    <a href="{% url 'hotel_images_delete' image.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{% url 'hotel_images_create' %}" class="btn btn-success">Add Image</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Search functionality for Hotels
+    document.getElementById('hotelSearch').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#hotelTable tbody tr');
+        rows.forEach(row => {
+            let name = row.cells[1].textContent.toLowerCase();
+            row.style.display = name.includes(filter) ? '' : 'none';
+        });
+    });
+
+    // Search functionality for Bookings
+    document.getElementById('customerSearch').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#bookingTable tbody tr');
+        rows.forEach(row => {
+            let customerName = row.cells[1].textContent.toLowerCase();
+            row.style.display = customerName.includes(filter) ? '' : 'none';
+        });
+    });
+
+    document.getElementById('hotelBookingSearch').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#bookingTable tbody tr');
+        rows.forEach(row => {
+            let hotelName = row.cells[2].textContent.toLowerCase();
+            row.style.display = hotelName.includes(filter) ? '' : 'none';
+        });
+    });
+
+    // Search functionality for Amenities
+    document.getElementById('amenitySearch').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#amenityTable tbody tr');
+        rows.forEach(row => {
+            let amenityName = row.cells[1].textContent.toLowerCase();
+            row.style.display = amenityName.includes(filter) ? '' : 'none';
+        });
+    });
+
+    // Search functionality for Hotel Images
+    document.getElementById('hotelImageSearch').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#hotelImageTable tbody tr');
+        rows.forEach(row => {
+            let hotelName = row.cells[1].textContent.toLowerCase();
+            row.style.display = hotelName.includes(filter) ? '' : 'none';
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'home/base.html' %}
+{% block title %}
+Sign up
+{% endblock title %}
+
+{% block css %}
+<style>
+    .form-signup {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Full viewport height */
+    }
+    .custom-container {
+        width: 30%;
+        margin: 0 auto; /* Центрує контейнер */
+        padding: 15px;
+        background-color: #ffffff; /* White background for the form */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+    
+</style>
+{% endblock css %}
+
+{% block body %}
+<main class="form-signup">
+    <div class="custom-container mt-5">
+        <form action='{% url 'signup' %}' method='POST'>
+            {% csrf_token %}
+            <h2 class="text-center mb-4">Sign Up</h2>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name='email' required>
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name='username' required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name='password' required>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+                <label class="form-check-label" for="exampleCheck1">I accept all T&C.</label>
+            </div>
+            <button type="submit" class="btn btn-dark w-100">Submit</button>
+        </form>
+    </div>
+</main>
+{% endblock body %}

@@ -1,0 +1,48 @@
+{% extends 'home/base.html' %}
+{% block title %}
+Sign in
+{% endblock title %}
+
+{% block css %}
+<style>
+    .form-signin {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Full viewport height */
+    }
+    .custom-container {
+        width: 30%;
+        margin: 0 auto; /* Центрує контейнер */
+        padding: 15px;
+        background-color: #ffffff; /* White background for the form */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+</style>
+{% endblock css %}
+
+{% block body %}
+<main class="form-signin">
+    <div class="custom-container mt-5">
+        <form action='{% url 'signin' %}' method='POST'>
+            {% csrf_token %}
+            <h2 class="text-center mb-4">Sign In</h2>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" name='username' required>
+                <div id="usernameHelp" class="form-text">We'll never share your username with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name='password' required>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Save My Info</label>
+            </div>
+            <button type="submit" class="btn btn-dark w-100">Submit</button>
+        </form>
+    </div>
+</main>
+{% endblock body %}
